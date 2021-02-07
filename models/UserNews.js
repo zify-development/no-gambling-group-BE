@@ -4,7 +4,8 @@ const { Schema, Types } = mongoose;
 const userNewsSchema = new Schema(
   {
     newsDescription: String,
-    createdDqteNews: Date,
+    createdDateNews: Date,
+    authorNews: String,
     userId: {
       type: Types.ObjectId,
       ref: "users",
