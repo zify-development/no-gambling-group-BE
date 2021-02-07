@@ -6,6 +6,7 @@ const userNewsSchema = new Schema(
     newsDescription: String,
     createdDateNews: Date,
     authorNews: String,
+    titleNews: String,
     userId: {
       type: Types.ObjectId,
       ref: "users",
