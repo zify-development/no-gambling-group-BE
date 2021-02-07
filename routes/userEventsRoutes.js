@@ -50,7 +50,6 @@ module.exports = (app) => {
           newUserEvent,
         });
       } catch (e) {
-        console.warn(e, "eee");
         return res.status(401).send("unauthorized");
       }
     } else {
