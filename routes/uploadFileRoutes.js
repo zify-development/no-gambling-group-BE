@@ -23,21 +23,7 @@ module.exports = (app) => {
 
       return res.status(200).send(rawData);
     } catch (e) {
-      return res.status(401).send("unauthorized");
-    }
-  });
-
-  app.get('api/user/videos/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-      const userImage = await uploadFileSchema.findOne({ _id: id });
-      const rawData = fs.readFileSync(userImage.fileUrl);
-
-      res.set("Content-Type", userImage.fileType);
-
-      return res.status(200).sendFile('assets/videos/test.mp4', { root: __dirname });
-    } catch (e) {
-      return res.status(401).send("unauthorized");
+      return res.status(500).send("internal server error");
     }
   });
 
@@ -55,13 +41,13 @@ module.exports = (app) => {
         const form = new formidable.IncomingForm();
         form.parse(req, function (err, fields, files) {
           const oldPath = files.image.path;
-          if (!fs.existsSync(`../backend/assets/${decoded.id}`)) {
-            fs.mkdirSync(`../backend/assets/${decoded.id}`, {
+          if (!fs.existsSync(`./assets/${decoded.id}`)) {
+            fs.mkdirSync(`./assets/${decoded.id}`, {
               recursive: true,
             });
           }
           const newPath =
-            path.join("../assets", `../backend/assets/${decoded.id}`) +
+            path.join("./assets", `./assets/${decoded.id}`) +
             "/" +
             files.image.name;
           const rawData = fs.readFileSync(oldPath);
@@ -108,13 +94,13 @@ module.exports = (app) => {
         const form = new formidable.IncomingForm();
         form.parse(req, function (err, fields, files) {
           const oldPath = files.image.path;
-          if (!fs.existsSync(`../backend/assets/${decoded.id}`)) {
-            fs.mkdirSync(`../backend/assets/${decoded.id}`, {
+          if (!fs.existsSync(`./assets/${decoded.id}`)) {
+            fs.mkdirSync(`./assets/${decoded.id}`, {
               recursive: true,
             });
           }
           const newPath =
-            path.join("../assets", `../backend/assets/${decoded.id}`) +
+            path.join("./assets", `./assets/${decoded.id}`) +
             "/" +
             files.image.name;
           const rawData = fs.readFileSync(oldPath);
